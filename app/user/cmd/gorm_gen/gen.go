@@ -6,14 +6,18 @@ import (
 )
 
 func main() {
+	mysql.Init()
+
 	db := mysql.DB
 
 	g := gen.NewGenerator(gen.Config{
 		OutPath: "biz/dal/query",
-		Mode:    gen.WithoutContext | gen.WithDefaultQuery | gen.WithDefaultQuery,
+		Mode:    gen.WithoutContext | gen.WithDefaultQuery | gen.WithQueryInterface,
 	})
 
 	g.UseDB(db)
 
 	g.ApplyBasic(g.GenerateModel("users"))
+
+	g.Execute()
 }

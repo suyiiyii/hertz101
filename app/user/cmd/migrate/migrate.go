@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+	mysql.Init()
 	err := mysql.DB.AutoMigrate(&model.User{})
 	if err != nil {
 		panic(err)
