@@ -16,4 +16,4 @@ jobs:
       - name: Trigger Gitea sync
         run: |
           echo "Triggering Gitea sync"
-          curl 'https://git.suyiiyii.top/api/v1/repos/suyiiyii/hertz101/mirror-sync' -X POST  -H 'Authorization: token ${{ secrets.GITEATOKEN }}'
+          curl 'https://git.suyiiyii.top/api/v1/repos/ssyg/hertz101/mirror-sync' -X POST  -H 'Authorization: token ${{ secrets.GITEATOKEN }}'
