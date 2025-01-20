@@ -1,6 +1,7 @@
 package conf
 
 import (
+	"github.com/spf13/viper"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -8,6 +9,8 @@ import (
 
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/kr/pretty"
+	_ "github.com/spf13/viper"
+	_ "github.com/spf13/viper/remote"
 	"gopkg.in/validator.v2"
 	"gopkg.in/yaml.v2"
 )
@@ -67,6 +70,20 @@ func initConf() {
 	}
 	conf = new(Config)
 	err = yaml.Unmarshal(content, conf)
+
+	// viper 获取远程配置测试
+	err = viper.AddRemoteProvider("consul", conf.Registry.RegistryAddress[0], "USER")
+	if err != nil {
+		return
+	}
+	viper.SetConfigType("yaml")
+	err = viper.ReadRemoteConfig()
+	if err != nil {
+		return
+	}
+
+	conf.MySQL.DSN = viper.GetString("MYSQL_DSN")
+
 	if err != nil {
 		klog.Error("parse yaml error - %v", err)
 		panic(err)
