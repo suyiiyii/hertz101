@@ -1,0 +1,16 @@
+name: Mirroring
+
+on: [ push, delete ]
+
+jobs:
+  to_gitlab:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: yesolutions/mirror-action@master
+        with:
+          REMOTE: 'https://git.suyiiyii.top/ssyg/hertz101.git'
+          GIT_USERNAME: suyiiyii
+          GIT_PASSWORD: ${{ secrets.GITEATOKEN }}
