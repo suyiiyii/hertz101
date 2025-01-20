@@ -1,6 +1,9 @@
 package main
 
 import (
+	"github.com/suyiiyii/hertz101/app/user/biz/dal"
+	"github.com/suyiiyii/hertz101/app/user/biz/dal/mysql"
+	"github.com/suyiiyii/hertz101/app/user/biz/dal/query"
 	"net"
 	"time"
 
@@ -21,6 +24,8 @@ func main() {
 	if err != nil {
 		klog.Error(err.Error())
 	}
+	dal.Init()
+	query.Use(mysql.DB)
 	opts := kitexInit()
 
 	svr := userservice.NewServer(new(UserServiceImpl), opts...)
