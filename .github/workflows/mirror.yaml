@@ -3,7 +3,7 @@ name: Mirroring
 on: [ push, delete ]
 
 jobs:
-  to_gitlab:
+  gitea_mirror:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
