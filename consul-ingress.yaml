@@ -5,6 +5,10 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
+  tls:
+    - hosts:
+        - consul.kl.suyiiyii.top
+      secretName: consul-tls
   rules:
     - host: consul.kl.suyiiyii.top
       http:
