@@ -10,6 +10,8 @@ import (
 	"github.com/kr/pretty"
 	_ "github.com/spf13/viper"
 	_ "github.com/spf13/viper/remote"
+	"gopkg.in/validator.v2"
+	"gopkg.in/yaml.v2"
 )
 
 var (

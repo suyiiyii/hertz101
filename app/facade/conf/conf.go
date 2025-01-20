@@ -2,11 +2,12 @@ package conf
 
 import (
 	_ "embed"
-	"os"
-	"sync"
-
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/kr/pretty"
+	"gopkg.in/validator.v2"
+	"gopkg.in/yaml.v2"
+	"os"
+	"sync"
 )
 
 var (
