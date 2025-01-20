@@ -13,7 +13,7 @@ func NewRegisterService(ctx context.Context) *RegisterService {
 }
 
 // Run create note info
-func (s *RegisterService) Run(req *user.RegisterResp) (resp *user.RegisterResp, err error) {
+func (s *RegisterService) Run(req *user.RegisterReq) (resp *user.RegisterResp, err error) {
 	// Finish your business logic.
 
 	return

@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"testing"
-	user "github.com/suyiiyii/hertz101/rpc_gen/kitex_gen/user"
+	user "github.com/suyiiyii/hertz101/app/user/kitex_gen/user"
 )
 
 func TestRegister_Run(t *testing.T) {
@@ -11,7 +11,7 @@ func TestRegister_Run(t *testing.T) {
 	s := NewRegisterService(ctx)
 	// init req and assert value
 
-	req := &user.RegisterResp{}
+	req := &user.RegisterReq{}
 	resp, err := s.Run(req)
 	t.Logf("err: %v", err)
 	t.Logf("resp: %v", resp)

@@ -23,6 +23,6 @@ message LoginResp {
 }
 
 service UserService {
-  rpc Register (RegisterResp) returns (RegisterResp) {}
+  rpc Register (RegisterReq) returns (RegisterResp) {}
   rpc Login (LoginReq) returns (LoginResp) {}
 }
