@@ -10,3 +10,8 @@ gen-user:
 gen-auth:
 	@cd app/auth && cwgo server --type RPC  --service auth --module  ${ROOT_MOD}/app/auth  --pass "-use  ${ROOT_MOD}/rpc_gen/kitex_gen" -I ../../idl  --idl ../../idl/auth.proto
 	@cd rpc_gen && cwgo client --type RPC  --service auth --module  ${ROOT_MOD}/rpc_gen --I ../idl --idl ../idl/auth.proto
+
+.PHONY: gen-facade
+gen-facade:
+	@cd app/facade && cwgo server --type HTTP  --service facade --module  ${ROOT_MOD}/app/facade  --pass "-use  ${ROOT_MOD}/rpc_gen/kitex_gen" -I ../../idl  --idl ../../idl/facade/facade.proto
+	@cd rpc_gen && cwgo client --type RPC  --service facade --module  ${ROOT_MOD}/rpc_gen --I ../idl --idl ../idl/facade/facade.proto
