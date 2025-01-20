@@ -1,15 +1,12 @@
 package conf
 
 import (
-	"io/ioutil"
+	_ "embed"
 	"os"
-	"path/filepath"
 	"sync"
 
 	"github.com/cloudwego/hertz/pkg/common/hlog"
 	"github.com/kr/pretty"
-	"gopkg.in/validator.v2"
-	"gopkg.in/yaml.v2"
 )
 
 var (
@@ -55,16 +52,20 @@ func GetConf() *Config {
 	return conf
 }
 
+//go:embed dev/conf.yaml
+var configFile []byte
+
 func initConf() {
-	prefix := "conf"
-	confFileRelPath := filepath.Join(prefix, filepath.Join(GetEnv(), "conf.yaml"))
-	content, err := ioutil.ReadFile(confFileRelPath)
-	if err != nil {
-		panic(err)
-	}
+	//prefix := "conf"
+	//confFileRelPath := filepath.Join(prefix, filepath.Join(GetEnv(), "conf.yaml"))
+	//content, err := ioutil.ReadFile(confFileRelPath)
+	//if err != nil {
+	//	panic(err)
+	//}
 
 	conf = new(Config)
-	err = yaml.Unmarshal(content, conf)
+
+	err := yaml.Unmarshal(configFile, conf)
 	if err != nil {
 		hlog.Error("parse yaml error - %v", err)
 		panic(err)

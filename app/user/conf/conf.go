@@ -1,18 +1,15 @@
 package conf
 
 import (
+	_ "embed"
 	"github.com/spf13/viper"
-	"io/ioutil"
 	"os"
-	"path/filepath"
 	"sync"
 
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/kr/pretty"
 	_ "github.com/spf13/viper"
 	_ "github.com/spf13/viper/remote"
-	"gopkg.in/validator.v2"
-	"gopkg.in/yaml.v2"
 )
 
 var (
@@ -61,15 +58,18 @@ func GetConf() *Config {
 	return conf
 }
 
+//go:embed dev/conf.yaml
+var configFile []byte
+
 func initConf() {
-	prefix := "conf"
-	confFileRelPath := filepath.Join(prefix, filepath.Join(GetEnv(), "conf.yaml"))
-	content, err := ioutil.ReadFile(confFileRelPath)
-	if err != nil {
-		panic(err)
-	}
+	//prefix := "conf"
+	//confFileRelPath := filepath.Join(prefix, filepath.Join(GetEnv(), "conf.yaml"))
+	//content, err := ioutil.ReadFile(confFileRelPath)
+	//if err != nil {
+	//	panic(err)
+	//}
 	conf = new(Config)
-	err = yaml.Unmarshal(content, conf)
+	err := yaml.Unmarshal(configFile, conf)
 
 	// viper 获取远程配置测试
 	err = viper.AddRemoteProvider("consul", conf.Registry.RegistryAddress[0], "USER")
