@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
+	user "github.com/suyiiyii/hertz101/rpc_gen/kitex_gen/user"
 	"testing"
-	user "github.com/suyiiyii/hertz101/app/user/kitex_gen/user"
 )
 
 func TestRegister_Run(t *testing.T) {

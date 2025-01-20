@@ -99,7 +99,7 @@ func registerHandler(ctx context.Context, handler interface{}, arg, result inter
 	switch s := arg.(type) {
 	case *streaming.Args:
 		st := s.Stream
-		req := new(user.RegisterResp)
+		req := new(user.RegisterReq)
 		if err := st.RecvMsg(req); err != nil {
 			return err
 		}
@@ -129,12 +129,12 @@ func newRegisterResult() interface{} {
 }
 
 type RegisterArgs struct {
-	Req *user.RegisterResp
+	Req *user.RegisterReq
 }
 
 func (p *RegisterArgs) FastRead(buf []byte, _type int8, number int32) (n int, err error) {
 	if !p.IsSetReq() {
-		p.Req = new(user.RegisterResp)
+		p.Req = new(user.RegisterReq)
 	}
 	return p.Req.FastRead(buf, _type, number)
 }
@@ -161,7 +161,7 @@ func (p *RegisterArgs) Marshal(out []byte) ([]byte, error) {
 }
 
 func (p *RegisterArgs) Unmarshal(in []byte) error {
-	msg := new(user.RegisterResp)
+	msg := new(user.RegisterReq)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -169,9 +169,9 @@ func (p *RegisterArgs) Unmarshal(in []byte) error {
 	return nil
 }
 
-var RegisterArgs_Req_DEFAULT *user.RegisterResp
+var RegisterArgs_Req_DEFAULT *user.RegisterReq
 
-func (p *RegisterArgs) GetReq() *user.RegisterResp {
+func (p *RegisterArgs) GetReq() *user.RegisterReq {
 	if !p.IsSetReq() {
 		return RegisterArgs_Req_DEFAULT
 	}
@@ -411,7 +411,7 @@ func newServiceClient(c client.Client) *kClient {
 	}
 }
 
-func (p *kClient) Register(ctx context.Context, Req *user.RegisterResp) (r *user.RegisterResp, err error) {
+func (p *kClient) Register(ctx context.Context, Req *user.RegisterReq) (r *user.RegisterResp, err error) {
 	var _args RegisterArgs
 	_args.Req = Req
 	var _result RegisterResult

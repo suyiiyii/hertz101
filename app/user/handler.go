@@ -2,15 +2,15 @@ package main
 
 import (
 	"context"
-	user "github.com/suyiiyii/hertz101/rpc_gen/kitex_gen/user"
 	"github.com/suyiiyii/hertz101/app/user/biz/service"
+	user "github.com/suyiiyii/hertz101/rpc_gen/kitex_gen/user"
 )
 
 // UserServiceImpl implements the last service interface defined in the IDL.
 type UserServiceImpl struct{}
 
 // Register implements the UserServiceImpl interface.
-func (s *UserServiceImpl) Register(ctx context.Context, req *user.RegisterResp) (resp *user.RegisterResp, err error) {
+func (s *UserServiceImpl) Register(ctx context.Context, req *user.RegisterReq) (resp *user.RegisterResp, err error) {
 	resp, err = service.NewRegisterService(ctx).Run(req)
 
 	return resp, err

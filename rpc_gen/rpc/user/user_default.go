@@ -2,12 +2,12 @@ package user
 
 import (
 	"context"
+	user "github.com/suyiiyii/hertz101/rpc_gen/kitex_gen/user"
 	"github.com/cloudwego/kitex/client/callopt"
 	"github.com/cloudwego/kitex/pkg/klog"
-	user "github.com/suyiiyii/hertz101/rpc_gen/kitex_gen/user"
 )
 
-func Register(ctx context.Context, req *user.RegisterResp, callOptions ...callopt.Option) (resp *user.RegisterResp, err error) {
+func Register(ctx context.Context, req *user.RegisterReq, callOptions ...callopt.Option) (resp *user.RegisterResp, err error) {
 	resp, err = defaultClient.Register(ctx, req, callOptions...)
 	if err != nil {
 		klog.CtxErrorf(ctx, "Register call failed,err =%+v", err)

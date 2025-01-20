@@ -4,6 +4,7 @@ import (
 	"context"
 	user "github.com/suyiiyii/hertz101/rpc_gen/kitex_gen/user"
 
+	"github.com/suyiiyii/hertz101/rpc_gen/kitex_gen/user/userservice"
 	"github.com/cloudwego/kitex/client"
 	"github.com/cloudwego/kitex/client/callopt"
 )
@@ -11,7 +12,7 @@ import (
 type RPCClient interface {
 	KitexClient() userservice.Client
 	Service() string
-	Register(ctx context.Context, Req *user.RegisterResp, callOptions ...callopt.Option) (r *user.RegisterResp, err error)
+	Register(ctx context.Context, Req *user.RegisterReq, callOptions ...callopt.Option) (r *user.RegisterResp, err error)
 	Login(ctx context.Context, Req *user.LoginReq, callOptions ...callopt.Option) (r *user.LoginResp, err error)
 }
 
@@ -41,7 +42,7 @@ func (c *clientImpl) KitexClient() userservice.Client {
 	return c.kitexClient
 }
 
-func (c *clientImpl) Register(ctx context.Context, Req *user.RegisterResp, callOptions ...callopt.Option) (r *user.RegisterResp, err error) {
+func (c *clientImpl) Register(ctx context.Context, Req *user.RegisterReq, callOptions ...callopt.Option) (r *user.RegisterResp, err error) {
 	return c.kitexClient.Register(ctx, Req, callOptions...)
 }
 

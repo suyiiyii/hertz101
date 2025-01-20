@@ -20,7 +20,13 @@ func (s *RegisterService) Run(req *user.RegisterReq) (resp *user.RegisterResp, e
 	if req.Password == "" || req.Email == "" {
 		return nil, errors.New("password or email is empty")
 	}
-	query.Q.User
+	u, err := query.Q.User.Where(query.Q.User.Email.Eq(req.Email)).First()
+	if err != nil {
+		return nil, err
+	}
+	resp = &user.RegisterResp{
+		UserId: int32(u.ID),
+	}
 
 	return
 }
