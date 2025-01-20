@@ -1,21 +1,36 @@
 syntax = "proto3";
 
-package frontend;
+package facade;
 
 option go_package = "/facade";
 
 import "api.proto";
 
-service FrontendService {
-  rpc Login(LoginReq) returns (LoginResp) {}
+
+service FacadeService {
+  rpc Register(RegisterReq) returns (RegisterResp) {
+    option (api.post) = "/register";
+  }
+  rpc Login(LoginReq) returns (LoginResp) {
+    option (api.post) = "/login";
+  }
+}
+
+message RegisterReq {
+  string email = 1[(api.query) = "email"];
+  string password = 2[(api.query) = "password"];
+  string confirm_password = 3[(api.query) = "confirm_password"];
+}
+
+message RegisterResp {
+  int32 user_id = 1;
 }
 
 message LoginReq {
-  string username = 1;
-  string password = 2;
+  string email = 1[(api.query) = "email"];
+  string password = 2[(api.query) = "password"];
 }
 
 message LoginResp {
   string token = 1;
 }
-
