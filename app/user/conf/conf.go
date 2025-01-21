@@ -2,7 +2,6 @@ package conf
 
 import (
 	_ "embed"
-	"fmt"
 	"github.com/spf13/viper"
 	"os"
 	"sync"
@@ -84,8 +83,6 @@ func initConf() {
 	if err != nil {
 		return
 	}
-	fmt.Println(conf.Registry.RegistryAddress[0])
-	fmt.Println(viper.GetString("MYSQL_DSN"))
 
 	conf.MySQL.DSN = viper.GetString("MYSQL_DSN")
 
