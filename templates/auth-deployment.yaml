@@ -1,22 +1,23 @@
+{{- range $index, $deployment := .Values.deployments }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth
+  name: {{ $deployment.name }}
   labels:
-    app: auth
+    app: {{ $deployment.name }}
 spec:
-  replicas: 1
+  replicas: {{ $deployment.replicas }}
   selector:
     matchLabels:
-      app: auth
+      app: {{ $deployment.name }}
   template:
     metadata:
       labels:
-        app: auth
+        app: {{ $deployment.name }}
     spec:
       containers:
-        - image: {{ .Values.registry }}/suyiiyii/hertz101-auth:{{ .Values.tag }}
-          name: badger
+        - image: {{ $.Values.registry }}/suyiiyii/hertz101-{{ $deployment.name }}:{{ $.Values.tag }}
+          name: {{ $deployment.name }}
           resources:
             limits:
               memory: "512Mi"
@@ -25,3 +26,4 @@ spec:
               memory: "64Mi"
               cpu: "200m"
       restartPolicy: Always
+{{- end }}
