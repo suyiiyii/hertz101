@@ -156,12 +156,12 @@ jobs:
         if: github.event_name == 'push'
         uses: mikefarah/yq@master
         with:
-          cmd: yq eval '.tag = "${{ needs.build.steps.meta.outputs.tags }}"' -i values.yaml
+          cmd: yq eval '.tag = "${{ needs.build.outputs.meta.outputs.version }}"' -i values.yaml
       - name: Git Auto Commit
         if: github.event_name == 'push'
         uses: stefanzweifel/git-auto-commit-action@v5.0.1
         with:
-          commit_message: "Update deployment image tag to ${{ needs.build.outputs.meta.outputs.tags }}"
+          commit_message: "Update deployment image tag to ${{ needs.build.outputs.meta.outputs.version }}"
           branch: manifest
           commit_user_name: "github-actions[bot]"
           commit_user_email: "github-actions[bot]@users.noreply.github.com"
