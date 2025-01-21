@@ -21,6 +21,9 @@ func NewRegisterService(Context context.Context, RequestContext *app.RequestCont
 	return &RegisterService{RequestContext: RequestContext, Context: Context}
 }
 
+// curl -X POST 10.42.0.106:8080/register
+// 使用POST请求，即可看到效果
+// 使用了 rpc 调用，并且使用 hertz 框架暴露出 http 接口
 func (h *RegisterService) Run(req *facade.RegisterReq) (resp *facade.RegisterResp, err error) {
 	//defer func() {
 	// hlog.CtxInfof(h.Context, "req = %+v", req)
