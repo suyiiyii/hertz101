@@ -143,6 +143,8 @@ jobs:
   update-manifest:
     runs-on: ubuntu-latest
     needs: ["build"]
+    permissions:
+      contents: write
     steps:
       - name: Checkout manifest
         if: github.event_name == 'push'
