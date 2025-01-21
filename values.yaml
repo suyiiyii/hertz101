@@ -1,7 +1,7 @@
 
 registry_expose: false
 registry: ghcr.io
-tag: "250121-cedec8b"
+tag: "250121-85d297a"
 deployments:
   - name: user
     replicas: 1
