@@ -1,6 +1,6 @@
 
 registry: ghcr.io
-tag: "250121-802e649"
+tag: "250121-1414be4"
 deployments:
   - name: user
     replicas: 1
