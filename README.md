@@ -9,6 +9,7 @@
 * 服务注册与发现（consul）
 * 配置动态加载（viper + consul）
 * docker 镜像
+* helm 模板 (manifest 分支)
 * k8s 部署
 * cicd 流水线
-* GitOps 部署
+* GitOps 部署 （argocd）
