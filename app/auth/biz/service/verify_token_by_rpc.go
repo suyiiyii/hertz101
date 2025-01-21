@@ -20,7 +20,7 @@ func NewVerifyTokenByRPCService(ctx context.Context) *VerifyTokenByRPCService {
 // Run create note info
 func (s *VerifyTokenByRPCService) Run(req *auth.VerifyTokenReq) (resp *auth.VerifyResp, err error) {
 	// Finish your business logic.
-	r, err := consul.NewConsulResolver("10.21.22.53:8500")
+	r, err := consul.NewConsulResolver("consul:8500")
 	rpcClient, err := user.NewRPCClient("user", client.WithResolver(r))
 	if err != nil {
 		return nil, err

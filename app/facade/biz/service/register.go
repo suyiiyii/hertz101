@@ -27,7 +27,7 @@ func (h *RegisterService) Run(req *facade.RegisterReq) (resp *facade.RegisterRes
 	// hlog.CtxInfof(h.Context, "resp = %+v", resp)
 	//}()
 	// todo edit your code
-	r, err := consul.NewConsulResolver("10.21.22.53:8500")
+	r, err := consul.NewConsulResolver("consul:8500")
 	if err != nil {
 		return nil, err
 	}
