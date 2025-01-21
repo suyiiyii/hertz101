@@ -16,7 +16,7 @@ on:
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
-  REGISTRY2: git.suyiiyii.top
+  REGISTRY2: registry.cn-shenzhen.aliyuncs.com
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
 
@@ -100,8 +100,8 @@ jobs:
         uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
         with:
           registry: ${{ env.REGISTRY2 }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITEATOKEN }}
+          username: ${{ secrets.ALI_REG_USERNAME }}
+          password: ${{ secrets.ALI_REG_PASSWORD }}
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
