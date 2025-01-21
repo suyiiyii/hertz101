@@ -1,4 +1,5 @@
 
+registry_expose: false
 registry: ghcr.io
 tag: "250121-1414be4"
 deployments:
