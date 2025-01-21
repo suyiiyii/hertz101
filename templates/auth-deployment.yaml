@@ -26,4 +26,5 @@ spec:
               memory: "64Mi"
               cpu: "200m"
       restartPolicy: Always
+---
 {{- end }}
