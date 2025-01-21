@@ -10,7 +10,6 @@ import (
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
-	"github.com/joho/godotenv"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
 	consul "github.com/kitex-contrib/registry-consul"
 	"github.com/suyiiyii/hertz101/app/user/conf"
@@ -21,17 +20,17 @@ import (
 
 func main() {
 
-	err := godotenv.Load()
-	if err != nil {
-		klog.Error(err.Error())
-	}
+	//err := godotenv.Load()
+	//if err != nil {
+	//	klog.Error(err.Error())
+	//}
 	dal.Init()
 	query.Use(mysql.DB)
 	opts := kitexInit()
 
 	svr := userservice.NewServer(new(UserServiceImpl), opts...)
 
-	err = svr.Run()
+	err := svr.Run()
 	if err != nil {
 		klog.Error(err.Error())
 	}
