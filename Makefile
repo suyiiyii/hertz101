@@ -14,3 +14,9 @@ gen-auth:
 .PHONY: gen-facade
 gen-facade:
 	@cd app/facade && cwgo server --type HTTP  --server_name facade --module ${ROOT_MOD}/app/facade -I ../../idl  --idl ../../idl/facade/facade.proto
+
+.PHONY: tidy
+tidy:
+	@cd app/auth && go mod tidy
+	@cd app/user && go mod tidy
+	@cd app/facade && go mod tidy
