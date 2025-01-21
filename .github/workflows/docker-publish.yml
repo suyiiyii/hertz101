@@ -68,7 +68,7 @@ jobs:
         run: |
           echo "DATE=$(date +'%y%m%d')" >> $GITHUB_ENV
           echo "COMMIT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-          
+      
 
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
@@ -139,10 +139,13 @@ jobs:
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
+    outputs:
+      meta: ${{ steps.meta.outputs }}
+      meta-for-gitea: ${{ steps.meta-for-gitea.outputs }}
 
   update-manifest:
     runs-on: ubuntu-latest
-    needs: ["build"]
+    needs: [ "build" ]
     permissions:
       contents: write
     steps:
