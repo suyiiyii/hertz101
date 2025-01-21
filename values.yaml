@@ -1,7 +1,6 @@
 
 registry: ghcr.io
-tag: main
-
+tag: ""
 deployments:
   - name: user
     replicas: 1
