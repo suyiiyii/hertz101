@@ -39,8 +39,8 @@ func (h *RegisterService) Run(req *facade.RegisterReq) (resp *facade.RegisterRes
 		return nil, err
 	}
 	loginResp, err := rpcClient.Login(h.Context, &user1.LoginReq{
-		Email:    "11",
-		Password: "22",
+		Email:    req.Email,
+		Password: req.Password,
 	})
 	if err != nil {
 		return nil, err
