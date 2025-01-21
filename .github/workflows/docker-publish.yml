@@ -16,6 +16,7 @@ on:
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
+  REGISTRY2: git.suyiiyii.top
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
 
@@ -74,12 +75,44 @@ jobs:
       # https://github.com/docker/build-push-action
       - name: Build and push Docker image
         id: build-and-push
-        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
+        uses: docker/build-push-action@0565240e2d4rab88bba5387d719585280857ece09 # v5.0.0
         with:
           context: app/${{ matrix.service }}/.
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+
+      # Login against a Docker registry except on PR
+      # https://github.com/docker/login-action
+      - name: Log into registry ${{ env.REGISTRY2 }}
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
+        with:
+          registry: ${{ env.REGISTRY2 }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITEATOKEN }}
+
+      # Extract metadata (tags, labels) for Docker
+      # https://github.com/docker/metadata-action
+      - name: Extract Docker metadata
+        id: meta-for-gitea
+        uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934 # v5.0.0
+        with:
+          images: ${{ env.REGISTRY2 }}/${{ env.IMAGE_NAME }}-${{ matrix.service }}
+
+      # Build and push Docker image with Buildx (don't push on PR)
+      # https://github.com/docker/build-push-action
+      - name: Build and push Docker image
+        id: build-and-push-for-gitea
+        uses: docker/build-push-action@0565240e2d4rab88bba5387d719585280857ece09 # v5.0.0
+        with:
+          context: app/${{ matrix.service }}/.
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta-for-gitea.outputs.tags }}
+          labels: ${{ steps.meta-for-gitea.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
