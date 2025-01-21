@@ -4,12 +4,8 @@ metadata:
   name: facade
 spec:
   ports:
-    - name: "8500"
-      port: 8500
-      targetPort: 8500
-    - name: "8600"
-      port: 8600
-      protocol: UDP
-      targetPort: 8600
+    - name: "8080"
+      port: 8080
+      targetPort: 8080
   selector:
     app: facade

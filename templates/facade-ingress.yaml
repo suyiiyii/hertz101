@@ -19,7 +19,7 @@ spec:
               service:
                 name: facade
                 port:
-                  number: 8500
+                  number: 8080
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -36,4 +36,4 @@ spec:
               service:
                 name: facade
                 port:
-                  number: 8500
+                  number: 8080
