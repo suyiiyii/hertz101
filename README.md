@@ -11,3 +11,4 @@
 * docker 镜像
 * k8s 部署
 * cicd 流水线
+* GitOps 部署
