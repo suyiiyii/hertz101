@@ -71,21 +71,22 @@ func initConf() {
 	//if err != nil {
 	//	panic(err)
 	//}
+	fmt.Println("configFile", configFile)
 	conf = new(Config)
 	err := yaml.Unmarshal(configFile, conf)
 
 	// viper 获取远程配置测试
 	err = viper.AddRemoteProvider("consul", conf.Registry.RegistryAddress[0], "USER")
+	fmt.Println("registry", conf.Registry.RegistryAddress[0])
+	fmt.Println("MYSQL_DSN", viper.GetString("MYSQL_DSN"))
 	if err != nil {
-		return
+		panic(err)
 	}
 	viper.SetConfigType("yaml")
 	err = viper.ReadRemoteConfig()
 	if err != nil {
-		return
+		panic(err)
 	}
-	fmt.Println(conf.Registry.RegistryAddress[0])
-	fmt.Println(viper.GetString("MYSQL_DSN"))
 
 	conf.MySQL.DSN = viper.GetString("MYSQL_DSN")
 
