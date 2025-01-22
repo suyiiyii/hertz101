@@ -4,16 +4,16 @@ import (
 	"net"
 	"time"
 
-	consul "github.com/kitex-contrib/registry-consul"
-
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
+	consul "github.com/kitex-contrib/registry-consul"
 	"github.com/suyiiyii/hertz101/app/auth/conf"
 	"github.com/suyiiyii/hertz101/app/auth/kitex_gen/auth/authservice"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
+	"os"
 )
 
 func main() {
@@ -27,7 +27,6 @@ func main() {
 		klog.Error(err.Error())
 	}
 }
-
 func kitexInit() (opts []server.Option) {
 	// address
 	addr, err := net.ResolveTCPAddr("tcp", conf.GetConf().Kitex.Address)
@@ -61,6 +60,7 @@ func kitexInit() (opts []server.Option) {
 		FlushInterval: time.Minute,
 	}
 	klog.SetOutput(asyncWriter)
+	klog.SetOutput(os.Stdout)
 	server.RegisterShutdownHook(func() {
 		asyncWriter.Sync()
 	})

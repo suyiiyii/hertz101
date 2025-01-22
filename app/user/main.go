@@ -6,6 +6,7 @@ import (
 	"github.com/suyiiyii/hertz101/app/user/biz/dal/query"
 	"github.com/suyiiyii/hertz101/common/mtl"
 	"net"
+	"os"
 	"time"
 
 	"github.com/cloudwego/kitex/pkg/klog"
@@ -75,5 +76,6 @@ func kitexInit() (opts []server.Option) {
 	server.RegisterShutdownHook(func() {
 		asyncWriter.Sync()
 	})
+	klog.SetOutput(os.Stdout)
 	return
 }

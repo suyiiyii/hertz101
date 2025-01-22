@@ -4,6 +4,7 @@ package main
 
 import (
 	"context"
+	"os"
 	"time"
 
 	"github.com/cloudwego/hertz/pkg/app"
@@ -59,6 +60,7 @@ func registerMiddleware(h *server.Hertz) {
 	h.OnShutdown = append(h.OnShutdown, func(ctx context.Context) {
 		asyncWriter.Sync()
 	})
+	hlog.SetOutput(os.Stdout)
 
 	// pprof
 	if conf.GetConf().Hertz.EnablePprof {
