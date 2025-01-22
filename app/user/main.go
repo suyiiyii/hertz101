@@ -1,23 +1,23 @@
 package main
 
 import (
-	"github.com/suyiiyii/hertz101/app/user/biz/dal"
-	"github.com/suyiiyii/hertz101/app/user/biz/dal/mysql"
-	"github.com/suyiiyii/hertz101/app/user/biz/dal/query"
-	"github.com/suyiiyii/hertz101/common/mtl"
-	"net"
-	"os"
-	"time"
-
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	kitexlogrus "github.com/kitex-contrib/obs-opentelemetry/logging/logrus"
+	"github.com/kitex-contrib/obs-opentelemetry/provider"
 	consul "github.com/kitex-contrib/registry-consul"
+	"github.com/suyiiyii/hertz101/app/user/biz/dal"
+	"github.com/suyiiyii/hertz101/app/user/biz/dal/mysql"
+	"github.com/suyiiyii/hertz101/app/user/biz/dal/query"
 	"github.com/suyiiyii/hertz101/app/user/conf"
+	"github.com/suyiiyii/hertz101/common/mtl"
 	"github.com/suyiiyii/hertz101/rpc_gen/kitex_gen/user/userservice"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
+	"net"
+	"os"
+	"time"
 )
 
 func main() {
@@ -58,6 +58,11 @@ func kitexInit() (opts []server.Option) {
 		klog.Fatal(err)
 	}
 	opts = append(opts, server.WithRegistry(r))
+
+	_ = provider.NewOpenTelemetryProvider(
+		provider.WithSdkTracerProvider(mtl.TracerProvider),
+		provider.WithEnableMetrics(false),
+	)
 
 	// klog
 	logger := kitexlogrus.NewLogger()
