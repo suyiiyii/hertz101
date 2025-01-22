@@ -16,7 +16,7 @@ var TracerProvider *tracesdk.TracerProvider
 
 func InitTracing(serviceName string) {
 	// set env
-	os.Setenv("OTEL_EXPORTER_OTLP_TRACES_ENDPOINT", "https://jaeger:4317")
+	os.Setenv("OTEL_EXPORTER_OTLP_TRACES_ENDPOINT", "http://jaeger:4317")
 	os.Setenv("OTEL_EXPORTER_OTLP_TRACES_INSECURE", "true")
 
 	exporter, err := otlptracegrpc.New(context.Background())
