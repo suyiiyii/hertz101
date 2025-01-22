@@ -24,4 +24,7 @@ spec:
               protocol: TCP
             - containerPort: 4318
               protocol: TCP
+          env:
+            - name: COLLECTOR_OTLP_ENABLED
+              value: "true"
       restartPolicy: Always
