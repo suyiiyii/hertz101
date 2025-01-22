@@ -5,4 +5,5 @@ use (
 	app/facade
 	app/user
 	rpc_gen
+	common
 )

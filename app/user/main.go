@@ -4,6 +4,7 @@ import (
 	"github.com/suyiiyii/hertz101/app/user/biz/dal"
 	"github.com/suyiiyii/hertz101/app/user/biz/dal/mysql"
 	"github.com/suyiiyii/hertz101/app/user/biz/dal/query"
+	"github.com/suyiiyii/hertz101/common/mtl"
 	"net"
 	"time"
 
@@ -27,6 +28,8 @@ func main() {
 	dal.Init()
 	query.Use(mysql.DB)
 	opts := kitexInit()
+
+	mtl.InitTracing(conf.GetConf().Kitex.Service)
 
 	svr := userservice.NewServer(new(UserServiceImpl), opts...)
 

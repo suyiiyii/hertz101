@@ -1,0 +1,36 @@
+package mtl
+
+import (
+	"context"
+	"os"
+
+	"github.com/cloudwego/kitex/server"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
+	"go.opentelemetry.io/otel/sdk/resource"
+	tracesdk "go.opentelemetry.io/otel/sdk/trace"
+	semconv "go.opentelemetry.io/otel/semconv/v1.17.0"
+)
+
+var TracerProvider *tracesdk.TracerProvider
+
+func InitTracing(serviceName string) {
+	// set env
+	os.Setenv("OTEL_EXPORTER_OTLP_TRACES_ENDPOINT", "https://jaeger:4317")
+	os.Setenv("OTEL_EXPORTER_OTLP_TRACES_INSECURE", "true")
+
+	exporter, err := otlptracegrpc.New(context.Background())
+	if err != nil {
+		panic(err)
+	}
+	server.RegisterShutdownHook(func() {
+		exporter.Shutdown(context.Background()) //nolint:errcheck
+	})
+	processor := tracesdk.NewBatchSpanProcessor(exporter)
+	res, err := resource.New(context.Background(), resource.WithAttributes(semconv.ServiceNameKey.String(serviceName)))
+	if err != nil {
+		res = resource.Default()
+	}
+	TracerProvider = tracesdk.NewTracerProvider(tracesdk.WithSpanProcessor(processor), tracesdk.WithResource(res))
+	otel.SetTracerProvider(TracerProvider)
+}
