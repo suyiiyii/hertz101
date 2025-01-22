@@ -15,7 +15,7 @@ spec:
         app: jaeger
     spec:
       containers:
-        - image: jaegertracing/all-in-one:latest
+        - image: docker.m.daocloud.io/jaegertracing/all-in-one:latest
           name: jaeger
           ports:
             - containerPort: 16686
